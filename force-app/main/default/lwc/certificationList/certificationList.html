@@ -1,0 +1,66 @@
+<template>
+    <lightning-card title="Certifications" icon-name="utility:ribbon">
+        <div class="slds-card__body_inner">
+            <!-- Check if any data is present or not -->
+            <template if:true={certifications.data}>
+                <!-- Search field to search specific record -->
+                <lightning-input type="search"
+                    onchange={handleSearchTermChange}
+                    variant="label-hidden"
+                    class="slds-m-bottom_small"
+                    label="Search"
+                    placeholder="Search for certifications"
+                    value={searchTerm}>
+                </lightning-input>
+                <lightning-layout multiple-rows="true" pull-to-boundary="small">
+                    <!-- Iterate on the list of records to work on individual record -->
+                    <template for:each={certifications.data} for:item="certification">
+                        <lightning-layout-item key={certification.Id} size="3" class="slds-p-around_x-small">
+                            <lightning-card class="certification-tile">
+                                <div slot="title" class="slds-card__header"><center><b>{certification.Name}</b></center></div>
+                                <div class="slds-p-horizontal_small">
+                                    <div class="slds-media">
+                                        <div class="slds-media__figure">
+											<img src={appResources.certificationImage} alt="Employee profile" class="certificationImage"/>
+										</div>
+                                        <div class="slds-media__body">
+                                            <!-- Display the data in the lightning card -->
+                                            <b><p class="slds-m-bottom_xx-small">Certification Name:</p></b>
+                                            <p class="slds-m-bottom_xx-small">{certification.Certification_Name__c}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div slot="footer" >
+                                    <center>
+                                        <!-- Used a button to navigate to record page of the same record -->
+                                        <lightning-button 
+                                            variant="base" 
+                                            value={certification.Id} 
+                                            label="Open Record" 
+                                            title="Click to Open Record" 
+                                            onclick={handleOpenRecordClick} 
+                                            class="slds-m-left_x-small">
+                                        </lightning-button>
+                                        <img src={appResources.boxImage} alt="Employee profile" class="boxImage"/>
+                                    </center>
+                                </div>
+                            </lightning-card>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+                <!-- InCase of search if entered searchTerm is not found in any record -->
+                <template if:false={hasResults}>
+                    <div class="slds-align_absolute-center slds-m-vertical_small">
+                        No results found as per your search...
+                    </div>
+                </template>    
+            </template>
+            <!-- If no data is present in the list -->
+            <template if:true={certifications.error}>
+                <div class="slds-text-color_error">
+                    An error occurred while loading the certification list
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

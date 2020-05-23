@@ -1,0 +1,63 @@
+<template>
+    <lightning-card title="Employees" icon-name="utility:people">
+        <div class="slds-card__body_inner">
+            <template if:true={employees.data}>
+                <lightning-input type="search"
+                    onchange={handleSearchTermChange}
+                    variant="label-hidden"
+                    class="slds-m-bottom_small"
+                    label="Search"
+                    placeholder="Search for employees"
+                    value={searchTerm}>
+                </lightning-input>
+                <lightning-layout multiple-rows="true" pull-to-boundary="small">
+                    <template for:each={employees.data} for:item="employee">
+                        <lightning-layout-item key={employee.Id} size="3" class="slds-p-around_x-small">
+                            <lightning-card class="employee-tile">
+                                <div slot="title" class="slds-card__header">
+                                    <center><b>{employee.Name}</b></center>
+                                </div>
+                                <div class="slds-p-horizontal_small">
+                                    <div class="slds-media">
+                                        <div class="slds-media__figure">
+											<img src={appResources.employeeImage} alt="Employee profile" class="employeeImage"/>
+										</div>
+                                        <div class="slds-media__body">
+                                            <br>
+                                            <b><p class="slds-m-bottom_xx-small">Employee Id:</p></b>
+                                            <p class="slds-m-bottom_xx-small">{employee.Employee_ID__c}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div slot="footer" >
+                                    <center>
+                                        {employee.Employee_Email__c}<br>
+                                        <lightning-button 
+                                            variant="base" 
+                                            value={employee.Id} 
+                                            label="Open Record" 
+                                            title="Click to Open Record" 
+                                            onclick={handleOpenRecordClick} 
+                                            class="slds-m-left_x-small">
+                                        </lightning-button>
+                                        <img src={appResources.boxImage} alt="Employee profile" class="boxImage"/>
+                                    </center>
+                                </div>
+                            </lightning-card>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+                <template if:false={hasResults}>
+                    <div class="slds-align_absolute-center slds-m-vertical_small">
+                        No results found as per your search...
+                    </div>
+                </template>    
+            </template>
+            <template if:true={employees.error}>
+                <div class="slds-text-color_error">
+                    An error occurred while loading the bear list
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

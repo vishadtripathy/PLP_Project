@@ -1,0 +1,62 @@
+<template>
+    <lightning-card title="Vouchers" icon-name="utility:undeprecate">
+        <div class="slds-card__body_inner">
+            <template if:true={vouchers.data}>
+                <lightning-input type="search"
+                    onchange={handleSearchTermChange}
+                    variant="label-hidden"
+                    class="slds-m-bottom_small"
+                    label="Search"
+                    placeholder="Search for certifications"
+                    value={searchTerm}>
+                </lightning-input>
+                <lightning-layout multiple-rows="true" pull-to-boundary="small">
+                    <template for:each={vouchers.data} for:item="voucher">
+                        <lightning-layout-item key={voucher.Id} size="3" class="slds-p-around_x-small">
+                            <lightning-card class="voucher-tile">
+                                <div slot="title" class="slds-card__header"><center><b>{voucher.Name}</b></center></div>
+                                <div class="slds-p-horizontal_small">
+                                    <div class="slds-media">
+                                        <div class="slds-media__figure">
+											<img src={appResources.voucherImage} alt="Voucher profile" class="voucherImage"/>
+										</div>
+                                        <div class="slds-media__body">
+                                            <p class="slds-m-bottom_xx-small"><b>Cost:</b>${voucher.Voucher_Cost__c}</p>
+                                            <b><p class="slds-m-bottom_xx-small">Validity:</p></b>
+                                            <p class="slds-m-bottom_xx-small">{voucher.Validity__c}</p>
+                                            <b><p class="slds-m-bottom_xx-small">Voucher Id:</p></b>
+                                            <p class="slds-m-bottom_xx-small">{voucher.Voucher_ID__c}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div slot="footer" >
+                                    <center>
+                                        <lightning-button 
+                                            variant="base" 
+                                            value={voucher.Id} 
+                                            label="Open Record" 
+                                            title="Click to Open Record" 
+                                            onclick={handleOpenRecordClick} 
+                                            class="slds-m-left_x-small">
+                                        </lightning-button>
+                                        <img src={appResources.boxImage} alt="Voucher profile" class="boxImage"/>
+                                    </center>
+                                </div>
+                            </lightning-card>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+                <template if:false={hasResults}>
+                    <div class="slds-align_absolute-center slds-m-vertical_small">
+                        No results found as per your search...
+                    </div>
+                </template>
+            </template>
+            <template if:true={error}>
+                <div class="slds-text-color_error">
+                    An error occurred while loading the voucher list
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

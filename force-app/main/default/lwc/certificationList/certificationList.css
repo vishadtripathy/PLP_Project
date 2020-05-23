@@ -1,0 +1,29 @@
+.certification-tile {
+    border: 1px solid #29648a;
+    border-radius: .25rem;
+    display: block;
+} 
+.slds-card {
+    border: 1px solid #9b724b;
+    background-color: #f5ebe1;
+}
+/* .slds-card {
+    border: 1px solid #d2955d;
+    background-color: #fbf6f0;
+    transition: border 0.5s, background-color 0.5s;
+} */
+
+.slds-card__header {
+    padding: .5rem 1rem;
+    border-bottom: 2px solid #29648a;
+    border-radius: 4px 4px 0 0;
+    background-color: #25274d;
+    color: #aaabb8;
+}
+
+.certificationImage {
+    height: 75px;
+}
+.boxImage {
+    height: 30px;
+}

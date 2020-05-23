@@ -1,0 +1,34 @@
+<template>
+    <div class="slds-float_right">
+        <lightning-button label="New" variant="brand" onclick={createNewEmployee}></lightning-button>
+</div>
+<div class="slds-p-top_x-large">
+    <lightning-card title="Employee List View" icon-name="custom:custom67">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Employee Name">Employee Name</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template if:true={listViewResult}>
+                    <template for:each={listViewResult} for:item="res">
+                        <tr class="slds-hint-parent" key={res.fields.Id.value}>
+                        <td>
+                            <lightning-button key={res.fields.Id.value} variant="base" label={res.fields.Name.value} title="View Employee" onclick={handleEmpView} value={res.fields.Id.value}></lightning-button>
+                        </td>
+                        </tr>
+                    </template>
+                </template>
+                <template if:false={listViewResult}>
+                    List View does not contain any data
+                </template>
+            </tbody>
+        </table>
+    </lightning-card>
+
+</div>
+    
+</template>
